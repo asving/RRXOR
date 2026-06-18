@@ -1,0 +1,34 @@
+{
+  "mode": "naive",
+  "seq_len": 256,
+  "layer0": {
+    "belief_linear_R2": 0.0778621014793823,
+    "belief_nonlinear_R2": 0.07428983394218787,
+    "last2_linear_acc": 0.5554901960784314,
+    "logits_linear_R2": 0.0019610745277769404
+  },
+  "layer1": {
+    "belief_linear_R2": 0.09075400640058666,
+    "belief_nonlinear_R2": 0.10950821763104357,
+    "last2_linear_acc": 0.6467647058823529,
+    "logits_linear_R2": 0.02071864598138573
+  },
+  "layer2": {
+    "belief_linear_R2": 0.1909407829901191,
+    "belief_nonlinear_R2": 0.2502103148711611,
+    "last2_linear_acc": 1.0,
+    "logits_linear_R2": 0.23847795768965274
+  },
+  "layer3": {
+    "belief_linear_R2": 0.7189352677438661,
+    "belief_nonlinear_R2": 0.875439206654824,
+    "last2_linear_acc": 0.9888235294117647,
+    "logits_linear_R2": 0.9604666943460387
+  },
+  "final": {
+    "belief_linear_R2": 0.5375127151435815,
+    "belief_nonlinear_R2": 0.807204514253673,
+    "last2_linear_acc": 0.9750980392156863,
+    "logits_linear_R2": 0.8995580204070321
+  }
+}
