@@ -7,6 +7,24 @@ Analysis tables: analysis_tauA.json, analysis_routeB.json.
 
 ## Test A — scaffold dose-response
 
+**CORRECTION (2026-07-06, caught by the task-discovery tool of PREREG4/RESULTS4).**
+A1's headline below ("the excursion VANISHES for p<=0.3") is RETRACTED — it was a
+measurement artifact. The excursion metric anchored its search at t_calib = first step
+with ce1 < 0.70; with an input scaffold the ungated bet forms near-instantly (the bit is
+free), so the excursion PRECEDED the anchor and the search window opened only after it
+ended. Raw logs: xp00 ce1 = 0.752-0.762 from step 50 to ~900 — the full stage-1 plateau,
+from the start; xp01 0.729 and xp03 0.706, exactly the predicted hedge on a noisy bit
+(q* = (2-p)/3 -> 0.752/0.729/0.702). Per-instance trajectory clustering exposed it: the
+"excursion" is a counterphase pair (rnd-match at -ln(2/3)=0.41, rnd-mismatch at
+-ln(1/3)=1.10, cluster purities 1.000), whose class average (~0.755) had been misread as
+slow initial calibration. Corrected conclusion: the scaffold does NOT remove the
+miscalibrated stage; it moves its onset to ~step 0 and sets its amplitude by bit quality.
+The serial gap (gate at ~1000 minus value at ~0) stayed LARGE and the pathology filled
+it. Consequently the "evidence-role tolerates 30% noise" half of the dissociation claim
+is unsupported (tau_gate was ~flat in p, 830-1200, ~= baseline); what survives of Test A:
+value substitution requires exactness (tau_solve accelerates only at p=0), the depth
+result (A2), and the pipelining/additivity analysis (A3).
+
 Data (per-seed, from analysis_tauA.json):
 - excursion peak (ce1): p<=0.3: 0.697-0.704 (NO excursion above ln2); p>=0.4: 0.766-0.777
   (full baseline-size excursion; baseline 0.768-0.775).
