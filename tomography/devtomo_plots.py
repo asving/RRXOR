@@ -20,9 +20,9 @@ rate = A / np.maximum(np.diff(steps), 1)[:, None, None] * 1000    # nats per 1k 
 
 CCOL = {}
 for c in cnames:
-    if "xor_" in c or c == "det": CCOL[c] = "#3b7dd8"
-    elif "xnor" in c: CCOL[c] = "#e04b5a"
-    elif c in ("match",) or c.endswith("_c0"): CCOL[c] = "#4fae62"
+    if "xor_" in c or c == "det" or "match(" in c: CCOL[c] = "#3b7dd8"
+    elif "xnor" in c or "sev" in c: CCOL[c] = "#e04b5a"
+    elif c in ("match",) or c.endswith("_c0") or "mod" in c: CCOL[c] = "#4fae62"
     else: CCOL[c] = "#e39b2d"
 
 # ---------------- Figure 1: the construction log ----------------
