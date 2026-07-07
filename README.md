@@ -1,6 +1,6 @@
 # RRXOR: how a transformer learns and implements a belief-gated circuit
 
-Two complementary studies of small transformers trained on the **RRXOR** process
+Four complementary studies of small transformers trained on the **RRXOR** process
 (repeating blocks `random, random, XOR(r1, r2)` with a random per-sequence phase offset):
 
 | directory | question | headline |
@@ -8,6 +8,7 @@ Two complementary studies of small transformers trained on the **RRXOR** process
 | [`circuit_analysis/`](circuit_analysis/) | **What does the final network compute?** (post-training mechanistic dissection) | An *unconditional XOR shortcut* gated by a *Bayes-calibrated phase posterior*; the belief geometry survives only on the task-relevant phase quotient. |
 | [`dynamics/`](dynamics/) | **How does training build it?** (preregistered learning-dynamics experiments) | Circuits are learned in order of *gradient accessibility*: the XOR shortcut forms first, its miscalibration **manufactures the gradient** for the phase circuit (a subtask loss provably rises then falls), emergence order = depth order = causal dependency, and the belief geometry unfolds coarse-to-fine from the phase-marginalized quotient. |
 | [`matryoshka/`](matryoshka/) | **Does it scale to nested hierarchy?** (3-level exception tower, Z27 ⊃ Z9 ⊃ Z3, + full whitebox decode) | The manufactured-gradient cascade fires at every level (per-class losses spike at the preregistered values); depth is not the constraint (2 layers solve it); and the decoded circuit shows **sync is a matched filter** — the Bayes log-odds is exactly linear in past violation bits, the net's comb matches Bayes at r = 1.000, and the 27-point belief simplex is never built, only its decision quotient. |
+| [`tomography/`](tomography/) | **Can tasks AND circuits be discovered automatically, from checkpoints alone?** (developmental tomography, validated on the decoded testbeds) | Yes: trajectory-clustered tasks, Adam-effective path-integrated attribution, weight-displacement units with socket–plug wiring — and **rollback** as weight-space time travel: rewinding one window's four blocks drops the net onto the exact earlier rung of the closed-form loss ladder (xnor 1.61 vs stage value 1.50). |
 
 The two halves were produced independently (different model configs, different seeds) and
 converge: the gated-shortcut anatomy found by the dissection is exactly the endpoint the
