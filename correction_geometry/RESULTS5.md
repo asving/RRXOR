@@ -77,3 +77,18 @@ The correction-conditional account survives its kill shot and gains two refineme
    space of predictive networks" has a second, slower timescale (linearization /
    consolidation) on top of the loss descent, and endpoint-only probing conflates the
    two.
+
+## Addendum: correction spectroscopy (corrspec.py / corrspec.png)
+
+Direct, hypothesis-light version suggested by asvin: measure the likelihood-ratio
+adjustment δ(x) = λ_post − λ_pre across each sharp loss drop and ask what history
+quotient it factors through. RRXOR-3 drop 1 (steps 200→400): E[δ | each of the 16
+length-4 suffixes] collapses onto two bands indexed by ⊕(last two) — u explains 94% of
+between-suffix variance; the entire suffix table matches u-only R² (0.70 vs 0.67):
+the first correction ε-machine IS the 2-state ⊕ machine, read off the data. Drop 2
+(1500→3000): no suffix function explains it (16-suffix table R² 0.25); the stage-2
+statistic (candidate × offset posterior) reaches held-out R² 0.85 (u-only 0.20).
+Matryoshka: regressing each of the four measured drops on each stage's closed-form
+theoretical correction gives a diagonal-dominant 4×4: diag 0.90 / 0.74 / 0.86 / 0.84,
+off-diagonal ≤ 0.34 (drop-3-on-δ*₂ = residual mod-3 gating completing in the adjacent
+window). Each drop implements exactly one stage's correction and no other.
