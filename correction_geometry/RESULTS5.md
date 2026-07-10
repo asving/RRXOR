@@ -110,3 +110,21 @@ steps beyond its 4-step fitting horizon. Trajectory across checkpoints: effectiv
 Method pitfalls hit and fixed: tests ≤ 3 are too short — the rank-4 shadow collapses
 the rotation pair onto its real part (eigenvalue −0.5 = cos 2π/3); fitting k above the
 true rank injects a null-space dimension that scrambles the spectrum.
+
+## Addendum 3: the root-of-unity tower (hankel27.py / hankel27_fig.png)
+
+Same spectral reconstruction on matryoshka. True generator: Hankel rank exactly 45
+(the predicted 9×(1+2+2) machine) with ALL 27 transfer eigenvalues on the 27th-root
+lattice (angles k·2π/27, k=−13..13, integer-exact). The net's behavioral machine fills
+the unit circle as the nested tower predicts: after drop 1, no clock (near-unit mass
+at angle 0 only); after drop 2, the CUBE roots (clusters at 0, ±2π/3); after drop 3,
+exactly the NINE ninth roots {0,±3,±6,±9,±12}·(2π/27); final, all 27 — matching truth.
+Dense trajectory staircase: 1 root class (steps ≤2200) → 3 (2400, on the era-2
+traversal) → 7 (mid-era-3) → 9 (3200–5000) → 27 (5600+), with the shifted-state
+operator fit R² dipping mid-drop (0.946–0.965: behavior between machines) and
+returning to 0.9996–1.0000 on every plateau. The Pontryagin dual of the Z27⊃Z9⊃Z3
+quotient tower appears rung-by-rung in the spectrum of pure behavior. Method notes:
+long tests (24 tokens, generator-sampled) are mandatory — short tests see only a
+rank-5 shadow; per-test column normalization is required or the tiny long-test
+probabilities are numerically invisible; count root classes by snapping near-unit
+eigenvalues to the lattice.
