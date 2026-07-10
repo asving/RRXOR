@@ -128,3 +128,20 @@ long tests (24 tokens, generator-sampled) are mandatory — short tests see only
 rank-5 shadow; per-test column normalization is required or the tiny long-test
 probabilities are numerically invisible; count root classes by snapping near-unit
 eigenvalues to the lattice.
+
+## Addendum 4: how a rung is installed — the continuous picture (hankel_flow.py / eigflow.py → eigflow.png)
+
+Transfer-operator spectrum at EVERY rrxor3 checkpoint (25-step resolution through the
+transition). The installation of the clock has two phases: during the behavioral drop,
+transient complex pairs flicker at wandering angles and magnitudes ≤ 0.4 (the fitted
+operators are between machines); then the pair LOCKS ONTO THE ANGLE 2π/3 (~step 2400)
+and ramps in MAGNITUDE 0.4 → 1.00 over steps 2500–5000 — mostly AFTER det-CE has
+converged (~2600). In the complex plane the route is radial: the pair appears on the
+2π/3 ray at small radius and walks straight out to the unit circle. Since |λ| is the
+per-step survival of phase information (memory horizon −1/ln|λ|), the ramp is the
+net's phase-memory horizon diverging from ~1 step to ∞ — the spectral form of the
+consolidation lag: frequency is learned with the behavior, fidelity is consolidated
+after it. Matryoshka cohorts (from stored eigenvalues): each root cohort's magnitude
+rises during its own drop (cube → ninth → fine 27th), with the cube cohort transiently
+OVERSHOOTING |λ| > 1 mid-drop (non-contractive fitted operator; fit R² dips there —
+reorganization is briefly not a stationary machine at all).
