@@ -92,3 +92,21 @@ Matryoshka: regressing each of the four measured drops on each stage's closed-fo
 theoretical correction gives a diagonal-dominant 4×4: diag 0.90 / 0.74 / 0.86 / 0.84,
 off-diagonal ≤ 0.34 (drop-3-on-δ*₂ = residual mod-3 gating completing in the adjacent
 window). Each drop implements exactly one stage's correction and no other.
+
+## Addendum 2: spectral reconstruction of the HMM from behavior (hankel.py / hankel_fig.png)
+
+Asvin's proposal: rebuild the machine from the net's conditionals via the Hankel route
+(spectral learning of observable-operator models). H[h,s] = P_net(s | h) computed
+exactly by teacher-forcing all test suffixes |s| ≤ 4 over 4096 histories at position
+60; SVD → states; shifted-state regression → operators A₀, A₁. Results (rrxor3):
+the true generator has Hankel rank exactly 5 and transfer eigenvalues
+{1, e^±2πi/3, 0, 0}; the final net's behavioral Hankel matches the true singular-value
+spectrum to 3 decimals and its transfer operator carries the clock at 0.998∠2.0944
+(target 2π/3 = 2.0944); the pre-drop-2 net has neither (different spectrum, no clock).
+The rank-5 OOM rolled autoregressively tracks the net at |Δp| 0.000–0.003 over 12
+steps beyond its 4-step fitting horizon. Trajectory across checkpoints: effective rank
+1–2 (iid) → 3–4 (order-2 bet) → overshoot to 9 mid-transition → compression to exactly
+5; the clock eigenvalue (angle-filtered) is installed across drop 2, magnitude → 1.000.
+Method pitfalls hit and fixed: tests ≤ 3 are too short — the rank-4 shadow collapses
+the rotation pair onto its real part (eigenvalue −0.5 = cos 2π/3); fitting k above the
+true rank injects a null-space dimension that scrambles the spectrum.
