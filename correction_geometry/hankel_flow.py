@@ -47,7 +47,7 @@ def spectral(tab, k=5):
     U, S, Vh = torch.linalg.svd(Y, full_matrices=False)
     Z = Y @ Vh[:k].T
     ops, fr = {}, []
-    psig1 = tab[(1,)]
+    psig1 = tab[()]
     for sig in (0, 1):
         Zs = string_probs(tab, shift=sig) @ Vh[:k].T
         psig = psig1 if sig == 1 else 1 - psig1

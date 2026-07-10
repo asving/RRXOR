@@ -145,3 +145,42 @@ after it. Matryoshka cohorts (from stored eigenvalues): each root cohort's magni
 rises during its own drop (cube → ninth → fine 27th), with the cube cohort transiently
 OVERSHOOTING |λ| > 1 mid-drop (non-contractive fitted operator; fit R² dips there —
 reorganization is briefly not a stationary machine at all).
+
+### Correction to Addendum 4 (2026-07-10)
+
+A convention bug in `hankel_flow.py` (operator regression weighted by the conditional
+AFTER σ instead of P(σ|h); `hankel.py`/`hankel27.py` were unaffected — verified by
+grep and by their independently-checked endpoint numbers) inflated the apparent
+post-behavioral share of the magnitude ramp. Corrected flow: flicker phase unchanged
+(transient pairs, fit R² 0.93–0.97); angle locks ~2400; |λ| reaches 0.94 by 2500 and
+0.98 by 3000 (i.e. the bulk of the magnitude installs WITH the drop's completion);
+the final 0.98 → 1.000 approach over 3000–6000, with fit R² 0.994 → 1.0000, is the
+post-convergence consolidation. The two-phase structure and the flicker→lock→ramp
+sequence stand; the consolidation-lag component is the final approach to losslessness,
+not the bulk of the ramp.
+
+## Addendum 5: Jasmina's questions (hankel_qa.py, SPECTRAL_METHOD.md)
+
+**Q1 (does the reconstructed machine predict the net at least as well as the true
+ε-machine?)** KL(net‖model) per context position, teacher-forced 32-position rollout:
+at the FIRST position the reconstructed OOM beats the true machine (rrxor3 1.8e-5 vs
+1.6e-4; fx0.03 2.1e-4 vs 1.6e-3) — it captures the net's own miscalibrations, which
+the true machine cannot; autoregressive drift crosses over at ~5 positions; 32-step
+means 7.5e-4 vs 2.6e-4 (rrxor3), 6.1e-3 vs 1.4e-3 (fx). All ≪ the ~0.5-nat entropy
+scale. Rollouts require per-step state renormalization (p(0)+p(1)=1).
+
+**Q2 (leaky RRXOR):** closed-form prediction confirmed exactly — the teleport makes
+the transfer spectrum {1, (1−ε)e^{±2πi/3}, 0, 0}: reconstructed true-table clocks at
+0.990/0.970/0.800∠2.094 for ε=.01/.03/.2. The NETS sit slightly inside their true
+radii (0.983/0.947/0.737): they forget marginally faster than Bayes — the spectral
+form of their CE gap. The forgetting-comb envelope (F1) and the clock radius are the
+same quantity in two presentations. Rank stays 5: the fractal belief SET is a
+continuum but its linear span is 5-dim, and the Hankel sees the span.
+
+**Q3 (the correction as its own machine):** the ratio c = P_post/P_pre is
+multiplicative along paths, so the same spectral pipeline applies with the one-step
+ratio as the weight. Against the IDEALIZED bet policy (q̂ = 0.665 fitted) the
+correction-WFA fits at R² 0.95 and its dominant eigen-triple is {1.97, 1.955∠2.095} =
+a common growth factor × the cube-root clock: the clock lives inside the correction.
+Against the ACTUAL mid-training pre-net it degrades to R² 0.83 — reciprocals of
+non-local policies are not low-rank (documented caveat).

@@ -74,8 +74,8 @@ ax.axhline(1.0, color="#d63f4f", ls=":", lw=1)
 ax.axvspan(550, 2500, color="#3f9e58", alpha=0.08, lw=0)
 ax.axvline(2600, color="#3a7d4c", ls="--", lw=0.9)
 ax.text(2750, 0.30, "det CE\nconverged", fontsize=7.6, color="#3a7d4c")
-ax.annotate("angle locks,\nthen magnitude ramps\n(mostly post-behavior)",
-            xy=(3600, 0.93), xytext=(500, 0.72), fontsize=8, color="#2f6fce",
+ax.annotate("angle locks & magnitude installs\nwith the drop; final approach\nto |λ|=1 is post-behavior",
+            xy=(3600, 0.97), xytext=(400, 0.70), fontsize=8, color="#2f6fce",
             arrowprops=dict(arrowstyle="-", color="#2f6fce", lw=0.9, alpha=0.6))
 ax.set_xscale("log"); ax.set_xlabel("training step", fontsize=9)
 ax.set_ylabel("|λ| of the clock pair", fontsize=9)
