@@ -145,3 +145,17 @@ def fx_table(seq, Q0, eps, maxlen=4):
             if key not in out:
                 out[key] = P1[:, Q0 + k].clamp(1e-9, 1 - 1e-9)
     return out
+
+def rrxor3_table(seq, Q0, maxlen=4):
+    """Exact elimination-filter conditional table along all suffix paths."""
+    B = seq.shape[0]
+    sc = seq.cpu()
+    out = {}
+    for s in make_sufs(maxlen):
+        full = torch.cat([sc[:, :Q0]] + [torch.full((B, 1), t).long() for t in s], 1)
+        P1 = rrxor3_p1_run(full)
+        for k in range(maxlen + 1):
+            key = tuple(s[:k])
+            if key not in out:
+                out[key] = P1[:, Q0 - 1 + k].clamp(1e-9, 1 - 1e-9)
+    return out

@@ -184,3 +184,30 @@ correction-WFA fits at R² 0.95 and its dominant eigen-triple is {1.97, 1.955∠
 a common growth factor × the cube-root clock: the clock lives inside the correction.
 Against the ACTUAL mid-training pre-net it degrades to R² 0.83 — reciprocals of
 non-local policies are not low-rank (documented caveat).
+
+## Addendum 6: the truncation puzzle (hankel_trunc.py)
+
+Jasmina's report: rank-3-truncated Hankel of the trained net reconstructs a much worse
+machine (vs ground truth) than the rank-3-truncated true generator, despite the net
+being at the Bayes floor. **Does not reproduce with exact-conditional Hankels**: at
+every cutoff k ∈ {2..6}, net-truncated and true-truncated agree to 3–4 decimals — CE
+vs truth 0.6853/0.6852 (k=2), 0.5967/0.5967 (k=3), 0.5394/0.5393 (k=4), 0.4629/0.4621
+(k=5); KL(true‖machine) likewise; identical fit R² (0.875 at k=3); principal angles
+between top-3 subspaces ≤ 1.7°; both truncated transfers stable. Likely sources of the
+observed asymmetry in other pipelines: Hankels ESTIMATED from finite samples (noise
+fills the tail and rotates the top-k subspace — especially if the generator's Hankel
+is analytic while the net's is sampled), FREE-RUNNING generation from truncated
+machines (they can emit unnormalized probabilities and diverge; ours is teacher-forced
+with per-step renormalization), or short tests.
+
+Two conceptual byproducts. (1) Truncation quality is a property of the behavioral
+function alone: the net implements the machine via the xor-trick + JIT combs and never
+carries the 5-dim recurrent state internally, yet its truncation ladder is identical
+to the generator's — internal circuitry is invisible to this operation. (2) SVD
+truncation is NOT belief-coarsening: at k=3 the truncated transfer has NO clock
+({0.999, 0, 0} — the rotation lives substantially in the discarded directions), and
+the truncated machine's CE (0.597) BEATS the developmental mod-3-gate rung (0.639).
+The L2-optimal rank-3 machine is a better predictor than SGD's rank-3-ish stage:
+gradient descent's ladder is built from gradient-accessible corrections, not from
+optimal low-rank approximants, and the truncation ladder of the final machine
+(0.685/0.597/0.539/0.462) does not retrace the developmental ladder.
