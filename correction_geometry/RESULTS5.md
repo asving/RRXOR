@@ -211,3 +211,21 @@ The L2-optimal rank-3 machine is a better predictor than SGD's rank-3-ish stage:
 gradient descent's ladder is built from gradient-accessible corrections, not from
 optimal low-rank approximants, and the truncation ladder of the final machine
 (0.685/0.597/0.539/0.462) does not retrace the developmental ladder.
+
+## Addendum 7: extracting the phase-belief simplex by transfer-eigenspace projection (eigproj.py → eigproj.png)
+
+SVD truncation kills the clock (Addendum 6); spectral projection keeps it. Construction
+(no probes, no activations, no ground truth in the loop): fit the behavioral machine at
+one position, eigendecompose the transfer T = A₀+A₁, and for every history form the
+projective clock coordinate w(h) = ⟨l_ω, z(h)⟩ / ⟨l_1, z(h)⟩ (left eigenvectors of the
+rotation and stationary modes). Certification against the exact elimination filter:
+ONE affine map takes the offset posterior onto the clock plane at ALL context lengths
+— pooled R² 0.9987 forward / 0.9989 reverse, per-position 0.992–1.000 including
+pre-sync lengths 4–8 where beliefs are interior mixtures. The plane displays the MSP
+sync tree: vertices (synced), uniform center, (1:1) and (2:1) edge points, (2:1:1)
+interior points, populated exactly at the filter's reachable beliefs. The spectral
+factorization is exact: posterior from the nilpotent sector R² 0.0003; candidate bit
+from the clock plane R² 0.000; candidate bit from the nilpotent sector at pre-det
+queries R² 1.0000. Eigenvalue magnitude = memory lifetime: the |λ|=1 rotation pair
+carries the phase simplex (kept forever), the λ≈0 modes carry the pending bits (die
+within a block), disjointly.
