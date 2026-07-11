@@ -229,3 +229,17 @@ from the clock plane R² 0.000; candidate bit from the nilpotent sector at pre-d
 queries R² 1.0000. Eigenvalue magnitude = memory lifetime: the |λ|=1 rotation pair
 carries the phase simplex (kept forever), the λ≈0 modes carry the pending bits (die
 within a block), disjointly.
+
+## Addendum 8: the fractal attractor from behavior (eigproj_fx.py → eigproj_fx.png)
+
+Same eigenspace projection on the leaky nets. Clock eigenvalues: 0.958∠2.095 (ε=0.03,
+1−ε=0.970) and 0.764∠2.090 (ε=0.2, 1−ε=0.800) — damped clocks, nets slightly lossier
+than Bayes as before. The clock plane is an affine image of the exact leaky CLASS
+posterior (A/B/C): R² 0.9889/0.9885 both directions at ε=0.03, 0.9308/0.9155 at ε=0.2;
+factorization exact again (class←nilpotent ≤0.001; pending←nilpotent 0.99;
+pending←clock ≤0.002). Plotted in the barycentric frame, the extracted set reproduces
+the leaky filter's FRACTAL attractor: near-vertex filaments at ε=0.03; the contracted
+self-similar spike structure at ε=0.2 — with the finest filaments blurred at ε=0.2
+(the net's behavioral calibration noise sets a resolution floor on attractor
+recovery). Forgetting = spectral contraction: more leak ⇒ smaller clock radius ⇒ the
+attractor hugs the uniform center.

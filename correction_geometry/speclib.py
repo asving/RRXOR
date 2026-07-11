@@ -159,3 +159,27 @@ def rrxor3_table(seq, Q0, maxlen=4):
             if key not in out:
                 out[key] = P1[:, Q0 - 1 + k].clamp(1e-9, 1 - 1e-9)
     return out
+
+def fx_pi_run(seq, eps):
+    """Exact 5-state leaky filter: full belief PI[:, t] = belief over the state
+    emitting token t (i.e. predictive after tokens < t)."""
+    B, L = seq.shape
+    sc = seq.cpu()
+    pi = torch.full((B, 5), 1 / 5, dtype=torch.double)
+    PI = torch.zeros(B, L + 1, 5, dtype=torch.double)
+    PI[:, 0] = pi
+    for t in range(L):
+        tok = sc[:, t]
+        lik = torch.stack([torch.full((B,), .5, dtype=torch.double)] * 3 +
+                          [(tok == 0).double(), (tok == 1).double()], 1)
+        w = pi * lik
+        w = w / w.sum(1, keepdim=True).clamp_min(1e-30)
+        nxt = torch.zeros_like(w)
+        t0 = (tok == 0).double(); t1 = (tok == 1).double()
+        nxt[:, 1] += w[:, 0] * t0; nxt[:, 2] += w[:, 0] * t1
+        nxt[:, 3] += w[:, 1] * t0 + w[:, 2] * t1
+        nxt[:, 4] += w[:, 1] * t1 + w[:, 2] * t0
+        nxt[:, 0] += w[:, 3] + w[:, 4]
+        pi = (1 - eps) * nxt + eps / 5
+        PI[:, t + 1] = pi
+    return PI
