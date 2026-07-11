@@ -54,16 +54,6 @@ scatter_panel(axA, W, PI, "", s=8)
 tp = np.stack([to_plane(p) for p in theory])
 axA.scatter(tp[:, 0], tp[:, 1], s=90, facecolors="none", edgecolors="#30343c",
             lw=1.1, zorder=5)
-ctr = to_plane((1/3, 1/3, 1/3))
-for lab, pi3 in [("vertex (synced)", (1, 0, 0)), ("uniform", (1/3, 1/3, 1/3)),
-                 ("(1:1) edge", (0.5, 0.5, 0))]:
-    p = to_plane(pi3)
-    dirv = ctr - p
-    n = np.linalg.norm(dirv)
-    off = (dirv / n * 0.22) if n > 1e-6 else np.array([0.16, 0.10])
-    axA.annotate(lab, xy=p, xytext=p + off, fontsize=8.5, color="#30343c",
-                 ha="center", zorder=7,
-                 arrowprops=dict(arrowstyle="-", lw=0.7, color="#666"))
 axA.set_title("A · all positions pooled — the MSP sync tree in the clock plane\n"
               "(color = exact posterior; ○ = filter-reachable beliefs)",
               fontsize=10, loc="left", pad=8)
