@@ -267,3 +267,18 @@ the idealized stage policies). Contrast Addendum 6: SVD truncation gives
 directions are not. With training checkpoints the identification is even more direct:
 each sector is BORN at its loss drop (Addendum 3 trajectory), so the developmental
 record labels the sectors by their corrections.
+
+## Addendum 10: sector ladders on rrxor3 and leaky (ladder_sectors.py)
+
+rrxor3: {1}+transients → CE 0.5996 vs the ungated-bet policy 0.6352 — the clock-blind
+machine BEATS the bet rung by ~0.036 (short-window violation info shifts P(next-det)
+without carrying phase; same reason SVD-k3 gave 0.597). So the tight rung-matching of
+matryoshka (within 0.002–0.009) is not automatic: sector-ablated machines are
+optimal-ish predictors within their memory class, and they land ON a rung only when
+the rung's policy is close to that optimum (m27's quotient tower separates cleanly in
+rotation frequency; rrxor3's single coarse stage does not). fx0.03 (the no-ladder
+contrast): {1}+transients → 0.6495 ≈ the ungated-bet value 0.6456; +damped clock →
+0.5585 (floor 0.5516) — the two-level sector ladder exists as machines, but the
+training curve is a smooth ramp that never plateaus at 0.65: sectors ↔ loss drops
+requires the task's corrections to align with spectral sectors (the
+correction-conditional condition), not just that sectors exist.
