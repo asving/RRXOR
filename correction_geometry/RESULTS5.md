@@ -243,3 +243,27 @@ self-similar spike structure at ε=0.2 — with the finest filaments blurred at 
 (the net's behavioral calibration noise sets a resolution floor on attractor
 recovery). Forgetting = spectral contraction: more leak ⇒ smaller clock radius ⇒ the
 attractor hugs the uniform center.
+
+## Addendum 9: which eigensector? — sector ablation recovers the loss ladder (hankel27_sector.py)
+
+Answer to "how do you know which eigensector to project onto" without ground truth:
+the spectrum PROPOSES (conjugate closure; magnitude bands = memory timescales;
+arithmetic closure of unit-circle angles = the subgroup lattice of the rotation group,
+here {1} ⊂ 3rd ⊂ 9th ⊂ 27th roots), and sector-ablation behavior DISPOSES. Projecting
+the k=45 matryoshka machine onto each candidate sector (always retaining the |λ|<0.8
+transients, which carry the pending bits every stage needs) and rolling the ablated
+machine teacher-forced:
+
+  {1} + transients          → CE 0.6672   (bet rung 0.6758)
+  + 3rd-root sector         → CE 0.6325   (mod-3 rung 0.6386)
+  + 9th-root sector         → CE 0.5304   (mod-9 rung 0.5328)
+  full spectrum             → CE 0.4624   (floor 0.4621)
+
+The developmental loss ladder is recoverable from the FINAL machine by spectral-sector
+ablation, each ablation landing within 0.002–0.009 of its rung (slightly below the
+closed-form policy values — the L2-fitted sector machines are marginally better than
+the idealized stage policies). Contrast Addendum 6: SVD truncation gives
+0.685/0.597/0.539 — NOT the rungs. Eigensectors are the rungs' geometries; singular
+directions are not. With training checkpoints the identification is even more direct:
+each sector is BORN at its loss drop (Addendum 3 trajectory), so the developmental
+record labels the sectors by their corrections.
