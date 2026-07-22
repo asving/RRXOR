@@ -39,3 +39,36 @@ loss is flat after ~2500 (the consolidation lag, fourth appearance).
 **P4 (guess matrix) — endpoint version CONFIRMED spectacularly:** KL(full-BP ‖ net)
 = 0.00009 nats over all positions — the net implements exact 4-level random-table
 tree inference. The plateau version is moot (no plateaus).
+
+## Addendum — the causal test of compositionality (asvin's pipeline-vs-parallel question)
+
+Probing depth-stratification cannot distinguish (a) a PIPELINE (level j+1 computed
+from level-j representations) from (b) PARALLEL-FINISH (each level computed directly
+from tokens, deeper functions merely needing more layers). Interchange test on the
+dense net: patch the pair(4,5) constituent symbol (cols 36-37, tree 2) along its
+encoder image (per-column class-mean swap, the validated causal-subspace method);
+query col 39 predicts leaf 8 (needs root inference consuming the parsed left half).
+Oracle = BP with that pair's upward message forced to the donor symbol.
+
+TRAP (cost us a first misread): a random donor symbol leaves a grammatical parse
+only 18% of the time; inconsistent counterfactuals have zero-vector BP targets
+(~0 KL contribution but garbage slopes). All metrics on the consistent subset
+(N=366, oracle gap 0.052 nats):
+
+- tape swap (ceiling): slope 1.004, corr 1.000 — and yield-invariant (only the
+  symbol matters to the net, as BP requires).
+- encoder patch: slope 0.99, corr 0.95, at L0-L3; collapses at L4 (0.23) and L5
+  (0.10) — the symbol is read from its span in blocks <=3, then it is too late.
+- full-column donor TRANSPLANT @L2 (replacement, donor context contaminants
+  included): slope 0.958, corr 0.981 — the reader consumes only the symbol from
+  that span.
+- PROPAGATION (the requested test): decoded root belief at L5 shifts under the
+  L2 pair-patch with slope 0.96-0.99, corr 0.94-0.96 vs the BP-predicted shift;
+  random-direction control slope 0.004.
+
+Verdict: causal (Gold-grade) compositionality — editing an intermediate
+constituent's representation rewrites the deeper beliefs and the output exactly as
+one step of BP predicts, with unity transfer. The depth stratification is a real
+pipeline, not parallel-finish. (PCFG-1 contrast proposed but confounded: there the
+node posterior ~ weighted sum of its own leaves, so the encoder direction overlaps
+raw-leaf directions and even a flat circuit would respond; needs a sharper design.)
