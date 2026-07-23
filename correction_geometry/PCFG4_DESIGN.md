@@ -134,3 +134,44 @@ runs/pcfg4_dense_seed0, runs/pcfg4_hard_seed0. Data generated on the fly
 - runs/pcfg4_{dense,hard}_seed0/ — evalset.pt, config.json, eval.jsonl, ckpts/.
 - Repo mirror: RRXOR/correction_geometry/ (design doc + code pushed at launch;
   results after grading).
+
+## CORRECTION (2026-07-23, post-run): design-metric bug and the alpha=0.05 rerun
+
+The sweep metric "gain = ln4 − floor" was CONTAMINATED: Dirichlet tables skew
+position MARGINALS, so most of the deep-class "signal" was order-0 marginal skew,
+not contextual inference. Corrected metric: contextual gain = marginalCE − floor
+(marginal = BP with zero evidence). Corrected sweep (MC 8192):
+
+```
+alpha  b0-ctx   b1-ctx   b2-ctx   b3-ctx
+0.05   0.5266   0.2169   0.1366   0.0597   <- PCFG-4b (relaunched)
+0.10   0.3877   0.0978   0.0064   0.0003
+0.15   0.4857   0.0518   0.0041   0.0012
+0.30   0.2510   0.0327   0.0002  -0.0000   <- original run: DEPTH-1 TASK
+```
+
+At alpha=0.3 all information deeper than one fusion is destroyed (entropic
+channels contract hard); b2/b3 were pure marginal learning. The claim in the
+design section that alpha=0.3 gives "3-6x more deep signal" is WRONG — it
+compared skew, not signal. At alpha=0.05 the inversion is still genuinely graded
+(maxP(a|b,c)=0.783, maxP(a|b)=0.515) AND multi-fusion signal survives
+(b3-ctx 0.06 nats). PCFG-4b = same design at alpha=0.05, runs
+pcfg4a0.05_{dense,hard}_seed0. Preregistration carries over with amendments:
+- P1': endpoints at evalset floors; contextual gains now hierarchical
+  (0.53/0.22/0.14/0.06) with graded single-child info — predict WEAK onset
+  ordering (partial shadows), grade against marginal-baselined curves.
+- P2': hard-only match at b2/b3 (6th attempt); untrained-class behavior graded
+  against MARGINAL baseline (the alpha=0.3 "positive transfer" was partial
+  marginal learning: hard b1 1.3045 vs marginal 1.2966 — slightly WORSE than
+  marginal, no contextual transfer).
+- P4': dose-response now possible at MULTI-fusion range (pair(4,5) -> leaf 8,
+  instrument = b3-ctx 0.06 nats) plus one-fusion replication; note the
+  16-point-support confound (below) applies to any single-constituent message.
+- P4 lesson from alpha=0.3 (stands): at one-fusion range interchange is
+  unity-slope at every layer (1.003/0.997, ceiling 1.003, control 0.03) but the
+  dose-response is SIGMOID (net mag 0.07/0.61/0.96/1.01 vs BP 0.26/0.43/0.62/1.00)
+  and the span code is TUPLE-INDEXED (R2 1.00) not lambda-linear (R2 0.37-0.42):
+  with only 16 natural message values, a discrete tuple code IS a belief code
+  on-manifold; off-manifold the net does attractor cleanup (snap-to-code). A
+  true metric-belief-code test needs interventions on DENSE-support beliefs
+  (e.g. downward/posterior-side variables integrating many leaves).
