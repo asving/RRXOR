@@ -141,7 +141,7 @@ axC.set_xticks(x); axC.set_xticklabels(lab, fontsize=10)
 axC.set_ylabel("information lost per added level (ratio)")
 axC.set_title("C · SDPI products predict the dilution ladder", fontsize=10, color=FG, loc="left")
 axC.legend(fontsize=7.5, facecolor=PANEL, labelcolor=FG, edgecolor="#30363d")
-axC.text(0.52, 0.66, "single-path bound; deviations run in the\ndirection multi-leaf evidence implies\n(shallow ↑, deepest ↓)",
+axC.text(0.40, 0.64, "single-path bound;\ndeviations run in the direction\nmulti-leaf evidence implies\n(shallow ↑, deepest ↓)",
          transform=axC.transAxes, fontsize=7.5, color=DIM, va="top", ha="center")
 
 # ================= Panel D =================
