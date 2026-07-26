@@ -76,3 +76,31 @@ w0 + (1-w0)c_{r-1}(t) pointwise rather than via integrated curve fits.
 Files: ladder_model.py (extraction+fits), ladder_model2.py (quantile
 robustness, contraction check — crude SVD contraction inconclusive, needs a
 proper chi^2 metric), ladder_ode.py (ODE fits), ladder_model.png.
+
+## Addendum (same day): closure tests
+
+1. **eta-ladder closes at ~40% accuracy.** Proper pi-weighted SDPI constants
+   per tree edge (lambda1 = 1 verified; per-level eta = lambda2^2 ranging
+   0.42-0.99 across edges). Single-path dilution products predict g-ratios
+   1.73 / 1.34 / 3.28 vs measured 2.47 / 1.50 / 2.44 — right pattern, and the
+   deviations run exactly as multi-leaf evidence implies (shallow classes
+   boosted above the single-path bound, deepest class cushioned below it).
+2. **Derivative-level test: the multipath/bootstrap term is ABSENT in both
+   PCFG tasks.** Probe-based latent coverage c_r(t) (order-r ancestor
+   posteriors decoded at the b3 query column, final R2 0.98-1.00, checkpoints
+   every 100 steps) and behavioral coverage both give y_r = c_r'/(1-c_r)
+   with NO positive dependence on c_{r-1}(t): pcfg4b corr -0.65..-0.75
+   (probe), -0.2..-0.3 (behavioral); pcfg2 CONTROL -0.17/-0.16/+0.05. Even
+   the leap-hard RHM learns as a parallel race paced by diluted direct
+   signal; its ODE preference for w0=0.02 was a curve-shape artifact (the
+   scalar model misfits pcfg2 in both limits). The renewal/bootstrap regime
+   remains real only for GATED tasks (m27's manufactured gradients), per the
+   RESULTS9 taxonomy. Caveat: c_prev is monotone in t and rates decline
+   generically, biasing the slope negative — a weak route term could hide,
+   but combined with the w0=1 ODE fit, no-detectable-bootstrap is the
+   parsimonious reading.
+3. **Open (sharpened):** the kappa-quantile compression (1.17 -> 0.51) is NOT
+   explained by latent routes; candidate source = within-class position
+   heterogeneity / tail shape. Also the m27 version of the derivative test
+   (where gating IS the mechanism) should show the positive c_prev term this
+   test was built to detect — the natural positive control.
