@@ -40,7 +40,7 @@ ax.plot(rows[:, 0], rows[:, 1], "o-", color=C[0], label="gradient alignment of t
 ax.plot(rows[:, 0], rows[:, 3], "s-", color=C[1], label="unit overlap in the free net (Jaccard)")
 ax.plot(rows[:, 0], rows[:, 2], "^-", color=C[2], label="error of a forced shared unit (MSE)")
 ax.set_xlabel("conflict dial $\\lambda$ (0 = same use, 1 = opposite sign)")
-ax.set_ylabel("per-series value (cosine / Jaccard / norm. MSE)", fontsize=7.5)
+ax.set_ylabel("per-series value", fontsize=8)
 ax.legend(fontsize=6.5, frameon=False); ax.axhline(0, color="#999", lw=0.7)
 save(fig, "b2_conflict")
 
